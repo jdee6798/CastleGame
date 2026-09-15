@@ -53,6 +53,7 @@ h1 {
   align-items: center;
   justify-content: center;
   background: rgba(8, 6, 12, 0.86);
+  backdrop-filter: blur(2px);
 }
 
 .overlay.hidden {
@@ -63,9 +64,9 @@ h1 {
   max-width: 340px;
   padding: 20px 24px;
   border: 2px solid #f2c40c;
-  border-radius: 8px;
-  background: #1c1622;
-  box-shadow: 0 0 20px rgba(242, 196, 12, 0.25);
+  border-radius: 10px;
+  background: linear-gradient(160deg, #241c2e 0%, #1c1622 100%);
+  box-shadow: 0 0 24px rgba(242, 196, 12, 0.3), inset 0 0 12px rgba(0, 0, 0, 0.4);
 }
 
 .overlay-panel h2 {
@@ -90,13 +91,17 @@ h1 {
   font-size: 15px;
   font-family: inherit;
   color: #1c1622;
-  background: #f2c40c;
+  background: linear-gradient(180deg, #ffd93d 0%, #f2c40c 100%);
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 
 .overlay-panel button:hover {
-  background: #ffd93d;
+  background: linear-gradient(180deg, #ffe066 0%, #ffd93d 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
