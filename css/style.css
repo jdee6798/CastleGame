@@ -1,0 +1,102 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, #2b2233 0%, #100c16 100%);
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: #eee6d8;
+}
+
+#game-wrapper {
+  text-align: center;
+  padding: 12px;
+}
+
+h1 {
+  margin: 4px 0 10px;
+  letter-spacing: 2px;
+  color: #f2c40c;
+  text-shadow: 0 0 8px rgba(242, 196, 12, 0.5);
+}
+
+#canvas-shell {
+  position: relative;
+  display: inline-block;
+  border: 6px solid #55483a;
+  border-radius: 6px;
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.6), inset 0 0 8px rgba(0, 0, 0, 0.6);
+  background: #000;
+}
+
+#game-canvas {
+  display: block;
+  image-rendering: pixelated;
+}
+
+.hint {
+  max-width: 420px;
+  margin: 10px auto 0;
+  font-size: 13px;
+  color: #b7a98f;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(8, 6, 12, 0.86);
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.overlay-panel {
+  max-width: 340px;
+  padding: 20px 24px;
+  border: 2px solid #f2c40c;
+  border-radius: 8px;
+  background: #1c1622;
+  box-shadow: 0 0 20px rgba(242, 196, 12, 0.25);
+}
+
+.overlay-panel h2 {
+  margin-top: 0;
+  color: #f2c40c;
+}
+
+.overlay-panel p {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.overlay-panel ul {
+  text-align: left;
+  font-size: 13px;
+  padding-left: 18px;
+}
+
+.overlay-panel button {
+  margin-top: 10px;
+  padding: 10px 22px;
+  font-size: 15px;
+  font-family: inherit;
+  color: #1c1622;
+  background: #f2c40c;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.overlay-panel button:hover {
+  background: #ffd93d;
+}

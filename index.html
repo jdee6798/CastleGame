@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Castle of Shadows &mdash; Treasure Hunt</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="game-wrapper">
+    <h1>Castle of Shadows</h1>
+    <div id="canvas-shell">
+      <canvas id="game-canvas"></canvas>
+      <div id="start-overlay" class="overlay">
+        <div class="overlay-panel">
+          <h2>Castle of Shadows</h2>
+          <p>Explore the castle, find keys to unlock its doors, and recover every
+             piece of treasure &mdash; especially the Crown Jewels hidden deep
+             within the Royal Treasury.</p>
+          <ul>
+            <li><strong>Move:</strong> Arrow Keys or WASD</li>
+            <li><strong>Map:</strong> Press M to toggle the castle map</li>
+          </ul>
+          <button id="start-button">Begin Exploring</button>
+        </div>
+      </div>
+      <div id="win-overlay" class="overlay hidden">
+        <div class="overlay-panel">
+          <h2>You found the Crown Jewels!</h2>
+          <p id="win-stats"></p>
+          <button id="restart-button">Play Again</button>
+        </div>
+      </div>
+    </div>
+    <p class="hint">Tip: some doors are locked &mdash; the key is always hidden somewhere you can already reach.</p>
+  </div>
+  <script src="js/castle-generator.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
