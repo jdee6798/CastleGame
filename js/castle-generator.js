@@ -184,13 +184,19 @@ function generateCastleData() {
 
   const unlocked = new Set();
   const keyPlacements = [];
+  const placedKeyRooms = new Set();
   for (let i = 0; i < chosenLocks.length; i++) {
     const lock = chosenLocks[i];
     lock.keyType = KEY_TYPES[i];
-    const reachableNow = [...reachableSet(unlocked)].filter((r) => r !== key(START.x, START.y));
-    const placementPool = reachableNow.length ? reachableNow : [key(START.x, START.y)];
-    const room = pick(shuffle(placementPool));
+    const reachableNow = [...reachableSet(unlocked)].filter(
+      (r) => r !== key(START.x, START.y) && !placedKeyRooms.has(r)
+    );
+    if (!reachableNow.length) {
+      throw new Error('Generated castle has no unique reachable room for a key — adjust SEED.');
+    }
+    const room = pick(shuffle(reachableNow));
     keyPlacements.push({ roomId: room, keyId: lock.keyType.id });
+    placedKeyRooms.add(room);
     unlocked.add(lock);
   }
 
@@ -277,12 +283,12 @@ function generateCastleData() {
   nameByRoom.set(deepest, 'Royal Treasury');
 
   const MINOR_TREASURES = [
-    { name: 'Gold Goblet', value: 50 }, { name: 'Silver Candlestick', value: 30 },
-    { name: 'Pearl Necklace', value: 60 }, { name: 'Ancient Coin', value: 20 },
-    { name: 'Jeweled Dagger', value: 70 }, { name: 'Ornate Mirror', value: 40 },
-    { name: 'Sapphire Ring', value: 65 }, { name: 'Ivory Comb', value: 25 },
-    { name: 'Emerald Brooch', value: 75 }, { name: 'Painted Vase', value: 35 },
-    { name: 'Silk Tapestry', value: 45 }, { name: 'Bronze Statuette', value: 30 },
+    { name: 'Gold Goblet', value: 50, icon: 'goblet' }, { name: 'Silver Candlestick', value: 30, icon: 'candlestick' },
+    { name: 'Pearl Necklace', value: 60, icon: 'necklace' }, { name: 'Ancient Coin', value: 20, icon: 'coin' },
+    { name: 'Jeweled Dagger', value: 70, icon: 'dagger' }, { name: 'Ornate Mirror', value: 40, icon: 'mirror' },
+    { name: 'Sapphire Ring', value: 65, icon: 'ring' }, { name: 'Ivory Comb', value: 25, icon: 'comb' },
+    { name: 'Emerald Brooch', value: 75, icon: 'brooch' }, { name: 'Painted Vase', value: 35, icon: 'vase' },
+    { name: 'Silk Tapestry', value: 45, icon: 'tapestry' }, { name: 'Bronze Statuette', value: 30, icon: 'statuette' },
   ];
 
   const keyRoomSet = new Set(keyPlacements.map((k) => k.roomId));
@@ -389,14 +395,14 @@ function generateCastleData() {
     if (n === deepest) {
       const usedCells = new Set(items.map((it) => `${it.row},${it.col}`));
       const cell = freeCells.find((f) => !usedCells.has(`${f.row},${f.col}`)) || freeCells[randInt(freeCells.length)] || { r: 4, c: 6 };
-      items.push({ type: 'treasure', id: 'grand-prize', name: 'Crown Jewels', value: 500, grand: true, row: cell.r, col: cell.c });
+      items.push({ type: 'treasure', id: 'grand-prize', name: 'Crown Jewels', value: 500, grand: true, icon: 'crown', row: cell.r, col: cell.c });
     }
     const tIdx = treasureRooms.indexOf(n);
     if (tIdx !== -1) {
       const t = MINOR_TREASURES[tIdx % MINOR_TREASURES.length];
       const usedCells = new Set(items.map((it) => `${it.row},${it.col}`));
       const cell = freeCells.find((f) => !usedCells.has(`${f.row},${f.col}`)) || freeCells[randInt(freeCells.length)] || { r: 3, c: 3 };
-      items.push({ type: 'treasure', id: `treasure-${n}`, name: t.name, value: t.value, row: cell.r, col: cell.c });
+      items.push({ type: 'treasure', id: `treasure-${n}`, name: t.name, value: t.value, icon: t.icon, row: cell.r, col: cell.c });
     }
 
     rooms[n] = {
