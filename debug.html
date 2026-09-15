@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Castle Debug</title></head>
+<body>
+<pre id="out">loading...</pre>
+<script src="js/castle-generator.js"></script>
+<script>
+  const c = generateCastleData();
+  const keyItems = [];
+  for (const id in c.rooms) {
+    for (const it of c.rooms[id].items) {
+      if (it.type === 'key') keyItems.push({room: id, keyId: it.keyId});
+    }
+  }
+  const lockedExits = [];
+  for (const id in c.rooms) {
+    for (const dir in c.rooms[id].exits) {
+      const e = c.rooms[id].exits[dir];
+      if (e.type === 'locked') lockedExits.push({room:id, dir, to:e.to, keyId:e.keyId});
+    }
+  }
+  document.getElementById('out').textContent = JSON.stringify({keyTypes: c.keyTypes.map(k=>k.id), keyItems, lockedExits, stats: c.stats}, null, 2);
+</script>
+</body>
+</html>
